@@ -31,12 +31,6 @@ public class PainTrackDaoImpl implements PainTrackDAO {
     public int create(int level, int user_id) throws SQLException {
     	Connection conn = daoFactory.getConnection();
 
-		try {
-				 System.out.println("CREATE diagnostic called for user " + user_id );
-        Thread.sleep(5000); // ← INCIDENT SQL LENT ARTIFICIEL
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
     	String deleteSQL = "DELETE FROM paintracks WHERE date = (CURRENT_DATE);";
     	String createSQL = "INSERT INTO paintracks (level, user_id) VALUES(?, ?);";
     	

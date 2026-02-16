@@ -5,7 +5,7 @@ import { Trend } from 'k6/metrics';
 export let options = {
     stages: [
         { duration: '30s', target: 5 },
-        { duration: '1m', target: 40 },
+        { duration: '1m', target: 90 },
         { duration: '30s', target: 0 },
     ],
 };

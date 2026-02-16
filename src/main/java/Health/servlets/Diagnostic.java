@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import Health.MemoryLeakSimulator;
+
 
 import Database.DAOFactory;
 import Health.DiagnosticBean;
@@ -134,6 +136,9 @@ public class Diagnostic extends HttpServlet {
 			return;
 		}
 		
+        // Simuler la fuite mémoire à chaque requête
+        MemoryLeakSimulator.leak();
+
 		String answers = request.getParameter("answers");
 		 System.out.println("POST received, answers: " + answers);
 		
