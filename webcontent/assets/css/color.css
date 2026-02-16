@@ -1,0 +1,250 @@
+
+
+/** Theme Color **/
+
+.handle-preloader .animation-preloader .spinner{
+  border: 3px solid var(--main-color);
+  border-top-color: var(--light-color); 
+}
+
+.theme-btn{
+	background: var(--main-color);
+}
+
+.scroll-top:hover{
+  background: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.banner-carousel .content-box .btn-box a{
+	color: var(--main-color);
+  border: 2px solid var(--main-color);
+}
+
+.banner-carousel .content-box .btn-box a:before{
+	background: var(--main-color);
+}
+
+.bg-color-1{
+  background: #fcf8f7;
+}
+
+.main-menu .navigation > li.current > a, 
+.main-menu .navigation > li:hover > a{
+	color: var(--main-color);
+}
+
+.banner-carousel .content-box h6{
+	background: var(--light-color);
+	color: var(--main-color);
+}
+
+.banner-section .owl-nav .owl-prev:hover,
+.banner-section .owl-nav .owl-next:hover{
+  background: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading{
+  color: var(--main-color);
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading:before{
+  color: var(--main-color);
+}
+
+.sec-title h6{
+    background: var(--light-color);
+    color: var(--main-color);
+}
+
+.about-section .content-box .tab-btn-box .tab-btns li:before{
+	background: var(--main-color);
+}
+
+.about-section .content-box .tab-btn-box .tab-btns li.active-btn,
+.about-section .content-box .tab-btn-box .tab-btns li:hover{
+ 	color: var(--main-color); 
+}
+
+.list-item li:before{
+	background: var(--main-color);
+}
+
+.protect-section .more-btn a{
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+}
+
+.protect-section .more-btn a:before {
+    background: var(--main-color);
+}
+
+.faq-section .content-box .text p a:hover{
+   color: var(--main-color);
+}
+
+.accordion-box .accordion .acc-btn h4 span{
+	color: var(--main-color);
+}
+
+.team-block-one .inner-box .image-box .social-links li a:hover{
+  background: var(--main-color);
+}
+
+.team-block-one .inner-box .lower-content h3 a:hover{
+  color: var(--main-color);
+}
+
+.team-block-one .inner-box .lower-content .phone a i{
+	color: var(--main-color);
+}
+
+.team-block-one .inner-box .lower-content .phone a:hover{
+  color: var(--main-color);
+}
+
+.handwash-section .inner-content .single-item .inner-box .image-box .count{
+	background: var(--main-color);
+}
+
+.news-block-one .inner-box .lower-content .feature{
+	background: var(--light-color);
+	color: var(--main-color);
+}
+
+.news-block-one .inner-box .lower-content h3 a:hover{
+  	color: var(--main-color);
+}
+
+.news-block-one .inner-box .lower-content .btn-box a:hover{
+	background: var(--main-color);
+}
+
+.cta-section .btn-box .btn-2{
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+}
+
+.cta-section .btn-box .btn-2:before {
+    background: var(--main-color);
+}
+
+.main-footer .widget-section .links-widget .widget-content ul li a:before{
+	background: var(--main-color);
+}
+
+.main-footer .widget-section .links-widget .widget-content ul li a:hover{
+	color: var(--main-color);
+}
+
+.main-footer .widget-section .contact-widget .info-list li i{
+	color: var(--main-color);
+}
+
+.main-footer .widget-section .contact-widget .info-list li a:hover{
+  color: var(--main-color);
+}
+
+.main-footer .widget-section .contact-widget .social-links li a:hover{
+	background: var(--main-color);
+	border-color: var(--main-color);
+}
+
+.main-footer .footer-bottom .copyright p a:hover{
+  color: var(--main-color);
+}
+
+.main-footer .footer-bottom .footer-nav li a:hover{
+  color: var(--main-color);
+}
+
+.page-title .content-box .bread-crumb li{
+	color: var(--main-color);
+}
+
+.page-title .content-box .bread-crumb li a:hover{
+  color: var(--main-color);
+}
+
+.main-menu .navigation > li > ul > li > a:hover,
+.main-menu .navigation > li > .megamenu li > a:hover{
+	color: var(--main-color);
+}
+
+.pagination li a:hover,
+.pagination li a.active{
+  border-color: var(--main-color);
+  background: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-search .search-form .form-group button{
+	background: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-search .search-form .form-group input:focus{
+	border-color: var(--main-color) !important;
+}
+
+.sidebar-page-container .sidebar .sidebar-category .widget-content ul li a:hover{
+  color: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-category .widget-content ul li a:hover:before{
+  color: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-post .post-inner .post h5 a:hover{
+  color: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li a{
+	background: #466ca9;
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li:nth-child(2) a{
+	background: #dd4b39;
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li:nth-child(3) a{
+	background: #55acee;
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li:nth-child(4) a{
+	background: #0077b5;
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li:last-child a{
+	background: #e4405f;
+}
+
+.sidebar-page-container .sidebar .sidebar-social .social-links li a:hover{
+  background: var(--main-color) !important;
+}
+
+.sidebar-page-container .sidebar .sidebar-tags .widget-content .tags-list li a:hover{
+  background: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.sidebar-page-container .sidebar .sidebar-tags{
+	padding-bottom: 30px !important;
+}
+
+.blog-details-content .news-block-one .inner-box .lower-content .text .list li:before{
+	color: var(--main-color);
+}
+
+.blog-details-content .post-share-option ul li a:hover{
+	background: var(--main-color);
+	border-color: var(--main-color);
+}
+
+.blog-details-content .comments-area .comment .comment-inner a:hover{
+  color: var(--main-color);
+}
+
+.blog-details-content .comments-form-area .form-group input:focus,
+.blog-details-content .comments-form-area .form-group textarea:focus{
+  	border-color: var(--main-color) !important;
+}

@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+  db:
+    container_name: pain-care-db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'PainCare'
+      MYSQL_USER: 'abdo'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'D0tPAJqubDOJzGh'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '30001:3306'
+    expose:
+      - '3306'
+      - '30001'
+    volumes:
+    - pain-care-db:/var/lib/mysql
+    - ./src/main/java/Database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  k6:
+    image: grafana/k6
+    volumes:
+      - ./k6-scripts:/scripts
+    depends_on:
+      - server
+  server:
+    container_name: pain-care-server
+    restart: always
+    ports:
+      - 8001:8080
+    build:
+      context: .
+    volumes:
+      - /app/webcontent/assets/avatars
+      - /app/webcontent/assets/blogs-images
+    depends_on:
+      - db
+volumes:
+  pain-care-db:

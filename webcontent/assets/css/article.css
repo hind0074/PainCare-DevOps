@@ -1,0 +1,39 @@
+.article-container {
+	text-align: left;
+	max-width: 800px;
+	margin: 0 auto;
+}
+        .art_img {
+            float: right; 
+            height:200px;
+            /* Float the image to the left */
+            margin-left: 20px; /* Add some margin to create space between the image and text */
+        }
+
+h3 {
+	margin-top: 1.5em;
+}
+
+ul {
+	list-style-type: disc;
+	margin-bottom: 1em;
+}
+    ol {
+        list-style-type: none;
+        counter-reset: my-counter;
+        margin-bottom: 1em;
+    }
+    li {
+        position: relative;
+        margin-bottom: 0.5em;
+        padding-left: 1.5em;
+    }
+
+    li::before {
+        font-size: 1.5em;
+        color: #007BFF;
+        position: absolute;
+        left: 0;
+        top: 0.1em;
+        transform: translateY(-50%);
+    }
