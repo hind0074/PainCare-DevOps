@@ -26,7 +26,7 @@ Once the setup is complete, explore the various features offered by the PainCare
 
 ## DevOps Team
 
-- Hind el harrab
+- Hind El Harrab
 - Meryem Elbiach
 - Mouna Admant
 - Doha Azami Idrissi
