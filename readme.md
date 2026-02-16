@@ -24,5 +24,12 @@ Once the setup is complete, explore the various features offered by the PainCare
 - Safouat EL Yassini
 - Mohamed Amyn el boujadaini
 
+## DevOps Team
+
+- Hind el harrab
+- Meryem Elbiach
+- Mouna Admant
+- Doha Azami Idrissi
+
 Feel free to contribute to the PainCare project and enhance its functionalities. Happy coding!
 
