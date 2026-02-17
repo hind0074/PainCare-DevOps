@@ -125,19 +125,21 @@ public class Diagnostic extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserBean userBean = userDAO.auth(request);
-		/*
+		
 		if (Math.random() < 0.2) {
         throw new RuntimeException("Random failure");
         }
-		*/
+		
 
 		if(userBean == null) {
 			response.sendRedirect("login");
 			return;
 		}
 		
-        // Simuler la fuite mémoire à chaque requête
+        /* Simuler la fuite mémoire à chaque requête
         MemoryLeakSimulator.leak();
+        */
+	  
 
 		String answers = request.getParameter("answers");
 		 System.out.println("POST received, answers: " + answers);

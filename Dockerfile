@@ -5,4 +5,4 @@ WORKDIR /app
 
 COPY /config/server.xml /usr/local/tomcat/conf/
 
-COPY /build/PainCare.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/your-application-1.0.0.war /usr/local/tomcat/webapps/ROOT.war

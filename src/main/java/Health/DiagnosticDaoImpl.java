@@ -36,7 +36,8 @@ public class DiagnosticDaoImpl implements DiagnosticDAO {
         PreparedStatement slowStmt = conn.prepareStatement(slowSQL);
         slowStmt.executeQuery();
         slowStmt.close();
-        */
+		*/
+        
 
 		String SQL = "INSERT INTO diagnostics (answers, user_id) VALUES(?, ?);";
 		PreparedStatement statement = conn.prepareStatement(SQL);
