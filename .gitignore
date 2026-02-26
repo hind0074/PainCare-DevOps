@@ -8,3 +8,7 @@ webcontent/assets/blogs-images
 .settings
 
 .metadata
+
+/logs/
+/*.log
+*.war
