@@ -12,3 +12,4 @@ webcontent/assets/blogs-images
 /logs/
 /*.log
 *.war
+*.jar
