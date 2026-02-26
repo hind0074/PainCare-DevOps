@@ -11,5 +11,9 @@ webcontent/assets/blogs-images
 
 /logs/
 /*.log
+*.class
 *.war
 *.jar
+.idea/
+*.iml
+.DS_Store
