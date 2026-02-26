@@ -1,0 +1,16 @@
+groups:
+  - name: alert-rules
+    rules:
+      - alert: SlowRequestDetected
+        expr: rate(diagnostic_alert_total[1m]) > 0
+        for: 10s
+  - name: memory-alerts
+    rules:
+      - alert: MemoryLeakTooFast
+        expr: rate(memory_leak_incidents_total[1m]) > 5
+        for: 10s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Fuite mémoire rapide détectée"
+          description: "La mémoire augmente trop vite (plus de 5 événements par minute)"

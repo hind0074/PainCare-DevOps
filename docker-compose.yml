@@ -24,6 +24,13 @@ services:
       - ./k6-scripts:/scripts
     depends_on:
       - server
+  jaeger:
+    image: jaegertracing/all-in-one:1.54
+    container_name: jaeger
+    ports:
+      - "16686:16686"   # UI
+      - "4318:4318"     # OTLP HTTP
+      - "4317:4317"     # OTLP gRPC
   server:
     container_name: pain-care-server
     restart: always
@@ -31,10 +38,33 @@ services:
       - 8001:8080
     build:
       context: .
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
+      - OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+      - OTEL_SERVICE_NAME=PainCare
     volumes:
       - /app/webcontent/assets/avatars
       - /app/webcontent/assets/blogs-images
+      - ./logs:/app/logs
     depends_on:
       - db
+      - jaeger
+  grafana:
+    image: grafana/grafana
+    container_name: pain-care-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alert.rules.yml:/etc/prometheus/alert.rules.yml
 volumes:
   pain-care-db:
+  grafana-data:
+  

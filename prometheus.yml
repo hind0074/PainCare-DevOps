@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'paincare_app'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['host.docker.internal:8001']  
+
+rule_files:
+  - "alert.rules.yml"
+
+  

@@ -8,6 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import Health.MemoryLeakSimulator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Timer;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
+import Health.MemoryMetrics;                      
 
 
 import Database.DAOFactory;
@@ -19,6 +25,33 @@ import User.UserDaoImpl;
 @WebServlet("/diagnostic")
 public class Diagnostic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LoggerFactory.getLogger(Diagnostic.class);
+   
+
+   //pour fuite mem
+/*
+    private static final PrometheusMeterRegistry registry = DiagnosticDaoImpl.getRegistry();
+    private static final Counter memoryLeakCounter =
+    Counter.builder("memory_leak_incidents_total")
+           .description("Nombre d'incidents de fuite mémoire détectés")
+           .register(registry);
+   */
+
+    // erreur intermittente
+
+	private static final PrometheusMeterRegistry registry = DiagnosticDaoImpl.getRegistry();
+
+    private static final Counter intermittentErrorCounter =
+    Counter.builder("intermittent_errors_total")
+           .description("Nombre total d'erreurs intermittentes")
+           .register(registry);
+
+    private static final Timer requestTimer =
+    Timer.builder("diagnostic_request_duration_seconds")
+         .description("Temps de traitement des requêtes diagnostic")
+         .register(registry);
+
+
 	public static final Object[][] questionsBank = {
 	    {"radio", "When do you start your period ?", new String[]{
     		"Before 11 years old",
@@ -100,7 +133,10 @@ public class Diagnostic extends HttpServlet {
 	public void init() throws ServletException {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		this.userDAO = daoFactory.getUserDAO();
-		this.diagnosticDAO = daoFactory.getDiagnosticDAO();
+		this.diagnosticDAO = new DiagnosticDaoImpl(daoFactory);
+		/*pour l incident fuite mem
+	    MemoryMetrics.registerMemoryMetrics(registry);*/
+		
 	}  
        
     public Diagnostic() {
@@ -123,40 +159,56 @@ public class Diagnostic extends HttpServlet {
 		renderForm(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserBean userBean = userDAO.auth(request);
-		
-		if (Math.random() < 0.2) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    long startTime = System.currentTimeMillis(); 
+    String requestId = java.util.UUID.randomUUID().toString();
+    
+    /* Simulation fuite mémoire
+    MemoryLeakSimulator.leak();
+    logger.info("MEMORY_LEAK simulated for requestId={}", requestId);
+    memoryLeakCounter.increment();
+    */
+    try {
+        UserBean userBean = userDAO.auth(request);
+
+        if (Math.random() < 0.2) {
+        intermittentErrorCounter.increment(); 
+        logger.error("INTERMITTENT_ERROR requestId={}", requestId);
         throw new RuntimeException("Random failure");
         }
-		
 
-		if(userBean == null) {
-			response.sendRedirect("login");
-			return;
-		}
-		
-        /* Simuler la fuite mémoire à chaque requête
-        MemoryLeakSimulator.leak();
-        */
-	  
+        if (userBean == null) {
+            logger.warn("UNAUTHORIZED requestId={}", requestId);
+            response.sendRedirect("login");
+            return;
+        }
 
-		String answers = request.getParameter("answers");
-		 System.out.println("POST received, answers: " + answers);
-		
-		try {
-			diagnosticDAO.create(answers, userBean.getID());
-			
-			DiagnosticBean diagnosticBean = diagnosticDAO.latest(userBean.getID());
-			
-			request.setAttribute("diagnosticBean", diagnosticBean);
-			
-			renderForm(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			response.setStatus(500);
-			response.getWriter().write(e.getMessage());
-		}
-	}
+        String answers = request.getParameter("answers");
+        diagnosticDAO.create(answers, userBean.getID());
+
+        DiagnosticBean diagnosticBean = diagnosticDAO.latest(userBean.getID());
+        request.setAttribute("diagnosticBean", diagnosticBean);
+
+        long duration = System.currentTimeMillis() - startTime;
+       //pour erreur intermettente
+        requestTimer.record(duration, java.util.concurrent.TimeUnit.MILLISECONDS);
+        renderForm(request, response);
+
+    } catch (SQLException e) {
+        
+        long duration = System.currentTimeMillis() - startTime;
+        logger.error("SQL_ERROR requestId={} duration={}ms", requestId, duration, e);
+        response.setStatus(500);
+        response.getWriter().write(e.getMessage());
+
+    } catch (Exception e) {
+      
+        long duration = System.currentTimeMillis() - startTime;
+        logger.error("REQUEST_FAILED requestId={} duration={}ms", requestId, duration, e);
+        throw e;
+    }
+}
 
 }
