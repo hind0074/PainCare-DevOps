@@ -35,9 +35,9 @@ public class Diagnostic extends HttpServlet {
     Counter.builder("memory_leak_incidents_total")
            .description("Nombre d'incidents de fuite mémoire détectés")
            .register(registry);
-   */
-
-    // erreur intermittente
+   
+*/
+    /* erreur intermittente
 
 	private static final PrometheusMeterRegistry registry = DiagnosticDaoImpl.getRegistry();
 
@@ -51,7 +51,7 @@ public class Diagnostic extends HttpServlet {
          .description("Temps de traitement des requêtes diagnostic")
          .register(registry);
 
-
+*/
 	public static final Object[][] questionsBank = {
 	    {"radio", "When do you start your period ?", new String[]{
     		"Before 11 years old",
@@ -134,8 +134,8 @@ public class Diagnostic extends HttpServlet {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		this.userDAO = daoFactory.getUserDAO();
 		this.diagnosticDAO = new DiagnosticDaoImpl(daoFactory);
-		/*pour l incident fuite mem
-	    MemoryMetrics.registerMemoryMetrics(registry);*/
+		//pour l incident fuite mem
+	    //MemoryMetrics.registerMemoryMetrics(registry);
 		
 	}  
        
@@ -168,17 +168,17 @@ public class Diagnostic extends HttpServlet {
     /* Simulation fuite mémoire
     MemoryLeakSimulator.leak();
     logger.info("MEMORY_LEAK simulated for requestId={}", requestId);
-    memoryLeakCounter.increment();
-    */
+    memoryLeakCounter.increment();*/
+    
     try {
         UserBean userBean = userDAO.auth(request);
-
+/*
         if (Math.random() < 0.2) {
         intermittentErrorCounter.increment(); 
         logger.error("INTERMITTENT_ERROR requestId={}", requestId);
         throw new RuntimeException("Random failure");
         }
-
+*/
         if (userBean == null) {
             logger.warn("UNAUTHORIZED requestId={}", requestId);
             response.sendRedirect("login");
@@ -192,8 +192,8 @@ public class Diagnostic extends HttpServlet {
         request.setAttribute("diagnosticBean", diagnosticBean);
 
         long duration = System.currentTimeMillis() - startTime;
-       //pour erreur intermettente
-        requestTimer.record(duration, java.util.concurrent.TimeUnit.MILLISECONDS);
+       /*pour erreur intermettente
+        requestTimer.record(duration, java.util.concurrent.TimeUnit.MILLISECONDS);*/
         renderForm(request, response);
 
     } catch (SQLException e) {

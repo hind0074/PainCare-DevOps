@@ -21,10 +21,10 @@ public class DiagnosticDaoImpl implements DiagnosticDAO {
     private static final PrometheusMeterRegistry registry =
         new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
         
-        //pour req lourd
-    //private final Counter alertCounter = registry.counter("diagnostic_alert_total");
-    //private final Timer slowRequestTimer = registry.timer("diagnostic_slow_request_duration_seconds");
-    //private final Counter slowRequestCounter = registry.counter("diagnostic_slow_request_total");
+    //pour req lourd
+    private final Counter alertCounter = registry.counter("diagnostic_alert_total");
+    private final Timer slowRequestTimer = registry.timer("diagnostic_slow_request_duration_seconds");
+    private final Counter slowRequestCounter = registry.counter("diagnostic_slow_request_total");
 
     public DiagnosticDaoImpl( DAOFactory daoFactory ) {
         this.daoFactory = daoFactory;
@@ -52,12 +52,17 @@ public class DiagnosticDaoImpl implements DiagnosticDAO {
 
     long startTime = System.currentTimeMillis();  // Début total
 
-    /* ---- Requête inutile / lourde ----
-    String slowSQL = "SELECT COUNT(*) FROM diagnostics d1, diagnostics d2";
+    // ---- Requête inutile / lourde ----
+    String slowSQL = 
+    "SELECT d1.id, d2.id " +
+    "FROM diagnostics d1 " +
+    "JOIN diagnostics d2 ON d1.id <> d2.id " +
+    "LIMIT 4000";  // assez pour faire patienter un peu la DB
+
     PreparedStatement slowStmt = conn.prepareStatement(slowSQL);
     slowStmt.executeQuery();
     slowStmt.close();
-*/
+
     // ---- Requête normale ----
     String SQL = "INSERT INTO diagnostics (answers, user_id) VALUES(?, ?);";
     PreparedStatement statement = conn.prepareStatement(SQL);
@@ -67,7 +72,7 @@ public class DiagnosticDaoImpl implements DiagnosticDAO {
     statement.close();
 
     long duration = System.currentTimeMillis() - startTime;  // Fin totale
-/*
+
     if (duration > 5000) {
         slowRequestCounter.increment();  // On compte l'incident
         slowRequestTimer.record(duration, java.util.concurrent.TimeUnit.MILLISECONDS);
@@ -77,11 +82,9 @@ public class DiagnosticDaoImpl implements DiagnosticDAO {
     } else {
         logger.info("DAO operation executed in {} ms", duration);
     }
-*/
+
     conn.close();
 }
-
-
 	
 	@Override
 	public DiagnosticBean latest(int user_id) throws SQLException {

@@ -8,12 +8,3 @@ webcontent/assets/blogs-images
 .settings
 
 .metadata
-
-/logs/
-/*.log
-*.class
-*.war
-*.jar
-.idea/
-*.iml
-.DS_Store
